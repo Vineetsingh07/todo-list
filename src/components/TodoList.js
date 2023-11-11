@@ -3,24 +3,26 @@ import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
 
 function TodoList() {
-  //   const [todos, setTodos] = useState([
-  //     { id: 1, task: "Reading the book" },
-  //     { id: 2, task: "feed the dog" },
-  //     { id: 3, task: "play badminton" },
-  //   ]);
+  const [todos, setTodos] = useState([]);
 
-  const todos = [
-    { id: 1, task: "Reading the book" },
-    { id: 2, task: "feed the dog" },
-    { id: 3, task: "play badminton" },
-  ];
+  const createTodo = (newtTodo) => {
+    console.log("newtTodo", newtTodo);
+    setTodos([...todos, newtTodo]);
+  };
+
+  const deleteTodo = (id) => {
+    const newTodoList = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodoList);
+  };
+
   return (
     <div>
-      <NewTodoForm />
+      <NewTodoForm createTodo={createTodo} />
       <h1>TodoList</h1>
+
       <ul>
         {todos.map((todo) => (
-          <Todo task={todo.task} />
+          <Todo task={todo.task} id={todo.id} deleteTodo={deleteTodo} />
         ))}
       </ul>
     </div>
