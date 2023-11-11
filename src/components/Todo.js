@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Todo({ id, task, deleteTodo }) {
+export default function Todo({ id, task, deleteTodo, updateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTask, setUpdatedTask] = useState(task);
   const toggleForm = () => {
@@ -12,14 +12,14 @@ export default function Todo({ id, task, deleteTodo }) {
   };
 
   const handleChange = (event) => {
-    setUpdatedTask({
-      [event.target.name]: event.target.value,
-    });
+    setUpdatedTask(event.target.value);
   };
 
   const handleUpdate = (event) => {
     event.preventDefault();
     console.log("value", event.target.value);
+    updateTodo(id, updatedTask);
+    setIsEditing(false);
   };
 
   if (!isEditing) {
