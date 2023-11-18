@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
+  useEffect(function () {
+    // componentDidMount()
+    const localDbTodoList = JSON.parse(localStorage.getItem("todo-list"));
+    console.log("localDbTodoList", localDbTodoList);
+    if (localDbTodoList) {
+      setTodos(localDbTodoList);
+      return;
+    }
+    setTodos([]);
+  }, []);
+
   const createTodo = (newtTodo) => {
-    console.log("newtTodo", newtTodo);
     setTodos([...todos, newtTodo]);
   };
 
